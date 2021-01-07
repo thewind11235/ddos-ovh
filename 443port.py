@@ -1213,11 +1213,12 @@ def proxylist():
 
 def numthreads():
 	global threads
+	config = open("config.txt","r").readlines()
 	try:
-		# threads = int(input("Insert number of threads (800): "))
-		threads = 800
+		# threads = int(input("Insert number of threads (800): "))		
+		threads = config[1]
 	except ValueError:
-		threads = int(800)
+		threads = int(config[1])
 		print ("800 threads selected.\n")
 	multiplication()
 
@@ -1225,7 +1226,8 @@ def multiplication():
 	global multiple
 	try:
 		# multiple = int(input("Insert a number of multiplication for the attack [(1-5=normal)(50=powerful)(100 or more=bomb)]: "))
-		multiple = int(1000)
+		config = open("config.txt","r").readlines()	
+		multiple = int(config[2])
 	except ValueError:
 		print("You mistyped, try again.\n")
 		multiplication()
@@ -1623,6 +1625,6 @@ class RequestDefaultHTTP(threading.Thread): # la classe del multithreading
 			except: # se qualcosa va storto
 				s.close() # chiude socket e ricomincia
 if __name__ == '__main__':
-	url = open("config.txt","r").readlines()		
-	URL_TARGET = url[0]
+	config = open("config.txt","r").readlines()	
+	URL_TARGET = config[0]
 	starturl() # questo fa startare la prima funzione del programma, che a sua volta ne starta un altra, poi un altra, fino ad arrivare all'attacco.                                                    
