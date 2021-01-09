@@ -2,6 +2,10 @@
 
 Powerful DDoS Attack
 
+sudo apt install python3-pip
+
+sudo apt install tmux
+
 cd ddos-ovh
 
 pip3 install -r requirements.txt
